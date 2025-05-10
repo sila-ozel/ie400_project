@@ -41,7 +41,11 @@ def part_1(jobs, seekers, location_distances):
 
     if model.status == GRB.OPTIMAL:
         print(f"Maximum weighted priority sum: {model.objVal}")
-        assignments = [(i,j) for i in I for j in J if x[i,j].X > 0.5]
+        assignments = []
+        for i in I:
+            for j in J:
+                if x[i, j].X == 1:
+                    assignments.append((i,j))
         return assignments
     else:
         None
