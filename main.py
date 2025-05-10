@@ -1,6 +1,7 @@
 import pandas as pd
 import ast
 from gurobipy import Model, GRB
+import matplotlib.pyplot as plt
 
 def part_1(jobs, I, J, C):
     model = Model('job_matching')
@@ -110,9 +111,23 @@ def main():
                 d_max[(i,j)] = dij
                 d_ij_pairs.append((i,j))
     w_vals = [70, 75, 80, 85, 90, 95, 100]
+    opt_vals = {}
     for w in w_vals:
         (assignments_part_2, part_2_obj_val) = part_2(w/100, jobs, d_max, d_ij_pairs, I, J, C, Mw)
+        opt_vals[w] = part_2_obj_val
         print(f"Second objective value: {part_2_obj_val}")
+    weights = list(opt_vals.keys())
+    objective_values = list(opt_vals.values())
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(weights, objective_values, marker='o', linestyle='-', color='b', label='Objective Value')
+    plt.title('Objective Values vs. Weight Thresholds')
+    plt.xlabel('Weight Threshold (%)')
+    plt.ylabel('Objective Value')
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+    
     # if assignments_part_2:
     #     print("Assignments:")
     #     for i,j in assignments_part_2:
