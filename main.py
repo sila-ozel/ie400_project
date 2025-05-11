@@ -1,3 +1,5 @@
+# We included a requirements.txt file to make necessary package installations easier. Run pip install -r requirements.txt to install the requirements.
+# to run this file, just use python3 main.py. It will run and plot the graph at the end.
 import pandas as pd
 import ast
 from gurobipy import Model, GRB
